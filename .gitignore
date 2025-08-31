@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel
+
+# Audio files (optional, remove if you want to include samples)
+*.mp3
+*.wav
+*.ogg
+*.m4a
+
+# Build
+dist/
+build/

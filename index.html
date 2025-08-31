@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BroVerse Music Visualizer | CBO Vibes</title>
+    
+    <!-- Meta Tags -->
+    <meta property="og:title" content="BroVerse Music Visualizer - CBO Edition">
+    <meta property="og:description" content="Interactive music visualizer featuring CBO with dynamic expressions and BDS color effects">
+    <meta property="og:image" content="https://imqpmvkloxoxibbrwwef.supabase.co/storage/v1/object/public/avatars/cbo/cbo_money_success.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="visualizer-container">
+        <!-- Background Effects Layer -->
+        <div class="background-effects"></div>
+        
+        <!-- Main Visualizer -->
+        <div class="visualizer-wrapper">
+            <!-- Circular Visualizer Bars -->
+            <div class="circular-visualizer" id="circular-visualizer">
+                <!-- Bars will be generated via JS -->
+            </div>
+            
+            <!-- CBO Avatar Container -->
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <div class="avatar" id="cbo-avatar"></div>
+                <div class="expression-indicator">
+                    <span id="mood-text">VIBING</span>
+                </div>
+            </div>
+            
+            <!-- Particle Effects -->
+            <div class="particles" id="particles"></div>
+        </div>
+        
+        <!-- Audio Controls -->
+        <div class="controls-panel">
+            <div class="controls-wrapper">
+                <!-- File Input -->
+                <label for="audio-file" class="file-input-label">
+                    <span class="file-icon">🎵</span>
+                    <span>Choose Track</span>
+                </label>
+                <input type="file" id="audio-file" accept="audio/*" hidden>
+                
+                <!-- Audio Element -->
+                <audio id="audio-player" controls></audio>
+                
+                <!-- Preset Modes -->
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="chill">Chill</button>
+                    <button class="mode-btn" data-mode="party">Party</button>
+                    <button class="mode-btn" data-mode="focus">Focus</button>
+                    <button class="mode-btn" data-mode="hype">Hype</button>
+                </div>
+                
+                <!-- Visualizer Settings -->
+                <div class="settings">
+                    <label class="setting">
+                        <span>Sensitivity</span>
+                        <input type="range" id="sensitivity" min="1" max="10" value="5">
+                    </label>
+                    <label class="setting">
+                        <span>Color Mode</span>
+                        <select id="color-mode">
+                            <option value="bds">BDS Spectrum</option>
+                            <option value="cbo">CBO Green</option>
+                            <option value="rainbow">Rainbow</option>
+                            <option value="mono">Monochrome</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Track Info -->
+            <div class="track-info">
+                <div class="track-name" id="track-name">No track loaded</div>
+                <div class="track-time">
+                    <span id="current-time">0:00</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span id="total-time">0:00</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- BroVerse Branding -->
+        <div class="branding">
+            <pre class="logo-ascii">
+╔═══════════════╗
+║   BroVerse    ║
+║   <span class="dollar">$</span> CBO <span class="dollar">$</span>     ║
+╚═══════════════╝
+            </pre>
+        </div>
+    </div>
+    
+    <script src="js/visualizer.js"></script>
+</body>
+</html>

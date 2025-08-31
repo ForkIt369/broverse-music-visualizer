@@ -1,0 +1,371 @@
+/* BroVerse Music Visualizer - BDS Design System */
+
+:root {
+    /* BDS Colors */
+    --bigsis-color: #00A1F1;
+    --lilsis-color: #7E3AF2;
+    --bro-color: #FE5F00;
+    --cbo-color: #3EB85F;
+    --neutral: #393939;
+    --bg-dark: #0a0a0a;
+    --bg-medium: #1a1a1a;
+    
+    /* Typography */
+    --font-display: 'DM Sans', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Spacing (8px grid) */
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 40px;
+    --space-6: 48px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-dark);
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Container */
+.visualizer-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background Effects */
+.background-effects {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, 
+        rgba(62, 184, 95, 0.05) 0%,
+        rgba(0, 0, 0, 0) 50%);
+    animation: bgPulse 10s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+/* Main Visualizer Wrapper */
+.visualizer-wrapper {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Circular Visualizer */
+.circular-visualizer {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visualizer-bar {
+    position: absolute;
+    width: 4px;
+    height: 100px;
+    background: linear-gradient(to top, 
+        var(--cbo-color) 0%,
+        var(--bro-color) 50%,
+        var(--lilsis-color) 100%);
+    border-radius: 2px;
+    transform-origin: center bottom;
+    transition: height 0.05s ease-out, 
+                background 0.3s ease;
+    box-shadow: 0 0 10px currentColor;
+}
+
+/* CBO Avatar */
+.avatar-container {
+    position: relative;
+    z-index: 10;
+    width: 200px;
+    height: 200px;
+}
+
+.avatar-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle,
+        rgba(62, 184, 95, 0.4) 0%,
+        transparent 70%);
+    animation: glowPulse 2s ease-in-out infinite;
+    filter: blur(20px);
+}
+
+@keyframes glowPulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 3px solid var(--cbo-color);
+    box-shadow: 0 0 30px rgba(62, 184, 95, 0.5);
+    transition: transform 0.1s ease-out,
+                border-color 0.3s ease;
+}
+
+.avatar.vibing {
+    animation: avatarBounce 0.5s ease-in-out infinite;
+}
+
+@keyframes avatarBounce {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.05) translateY(-5px); }
+}
+
+.expression-indicator {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: var(--space-1) var(--space-2);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--cbo-color);
+    text-transform: uppercase;
+}
+
+/* Particles */
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--cbo-color);
+    border-radius: 50%;
+    animation: particleFloat 3s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Controls Panel */
+.controls-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top,
+        rgba(26, 26, 26, 0.95) 0%,
+        transparent 100%);
+    backdrop-filter: blur(10px);
+    padding: var(--space-3) var(--space-4);
+}
+
+.controls-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+}
+
+/* File Input */
+.file-input-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    background: var(--cbo-color);
+    color: white;
+    border-radius: var(--space-1);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.file-input-label:hover {
+    background: #35a352;
+}
+
+/* Audio Controls */
+#audio-player {
+    flex: 1;
+    max-width: 300px;
+    height: 40px;
+}
+
+/* Mode Selector */
+.mode-selector {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.mode-btn {
+    padding: var(--space-1) var(--space-2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--space-1);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mode-btn.active {
+    background: var(--cbo-color);
+    border-color: var(--cbo-color);
+}
+
+/* Settings */
+.settings {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.setting {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: 14px;
+}
+
+.setting input[type="range"] {
+    width: 100px;
+}
+
+.setting select {
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* Track Info */
+.track-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.track-name {
+    font-weight: 500;
+}
+
+.track-time {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-left: auto;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--cbo-color);
+    transition: width 0.1s linear;
+}
+
+/* Branding */
+.branding {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+}
+
+.logo-ascii {
+    font-family: monospace;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.3);
+    line-height: 1.2;
+}
+
+.dollar {
+    color: var(--cbo-color);
+    animation: dollarPulse 2s ease-in-out infinite;
+}
+
+@keyframes dollarPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .visualizer-wrapper {
+        width: 90vw;
+        height: 90vw;
+        max-width: 400px;
+        max-height: 400px;
+    }
+    
+    .circular-visualizer {
+        width: 80vw;
+        height: 80vw;
+        max-width: 350px;
+        max-height: 350px;
+    }
+    
+    .avatar-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .controls-wrapper {
+        flex-wrap: wrap;
+    }
+}
