@@ -67,19 +67,14 @@ class BroVerseVisualizer {
     }
     
     setupAudioContext() {
-        // Create audio context on user interaction
-        const initAudio = () => {
-            if (!this.audioContext) {
-                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                this.analyser = this.audioContext.createAnalyser();
-                this.analyser.fftSize = 512;
-                this.bufferLength = this.analyser.frequencyBinCount;
-                this.dataArray = new Uint8Array(this.bufferLength);
-            }
-        };
-        
-        // Initialize on first user interaction
-        document.addEventListener('click', initAudio, { once: true });
+        // Initialize audio context immediately
+        if (!this.audioContext) {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            this.analyser = this.audioContext.createAnalyser();
+            this.analyser.fftSize = 512;
+            this.bufferLength = this.analyser.frequencyBinCount;
+            this.dataArray = new Uint8Array(this.bufferLength);
+        }
     }
     
     createVisualizerBars() {
@@ -119,12 +114,28 @@ class BroVerseVisualizer {
     loadAudioFile(event) {
         const file = event.target.files[0];
         if (file) {
+            // Reset source connection for new file
+            if (this.source) {
+                this.source.disconnect();
+                this.source = null;
+            }
+            
             const url = URL.createObjectURL(file);
             this.audioPlayer.src = url;
             this.trackName.textContent = file.name.replace(/\.[^/.]+$/, '');
             
-            // Auto play
-            this.audioPlayer.play();
+            // Initialize audio context if needed
+            if (!this.audioContext) {
+                this.setupAudioContext();
+            }
+            
+            // Wait for audio to be loaded before playing
+            this.audioPlayer.addEventListener('canplay', () => {
+                // Auto play with user gesture
+                this.audioPlayer.play().catch(e => {
+                    console.log('Autoplay prevented, please click play button');
+                });
+            }, { once: true });
         }
     }
     
@@ -133,15 +144,21 @@ class BroVerseVisualizer {
             this.setupAudioContext();
         }
         
-        // Disconnect previous source if exists
-        if (this.source) {
-            this.source.disconnect();
+        // Resume audio context if suspended (Chrome autoplay policy)
+        if (this.audioContext.state === 'suspended') {
+            this.audioContext.resume();
         }
         
-        // Create new source
-        this.source = this.audioContext.createMediaElementSource(this.audioPlayer);
-        this.source.connect(this.analyser);
-        this.analyser.connect(this.audioContext.destination);
+        // Only create source once per audio element
+        if (!this.source) {
+            try {
+                this.source = this.audioContext.createMediaElementSource(this.audioPlayer);
+                this.source.connect(this.analyser);
+                this.analyser.connect(this.audioContext.destination);
+            } catch (e) {
+                console.log('Audio source already connected');
+            }
+        }
     }
     
     startVisualization() {
