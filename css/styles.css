@@ -73,14 +73,95 @@ body {
     justify-content: center;
 }
 
-/* Circular Visualizer */
-.circular-visualizer {
+/* Visualization Container */
+.visualization-container {
     position: absolute;
     width: 500px;
     height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Visualization Modes - Base */
+.viz-mode {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.viz-mode.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Circular Visualizer */
+.circular-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Wave Visualizer */
+.wave-visualizer {
+    width: 100%;
+    height: 100%;
+}
+
+/* Particle Field */
+.particle-field {
+    width: 100%;
+    height: 100%;
+}
+
+/* DNA Helix */
+.dna-helix {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.dna-strand {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    transition: all 0.1s ease;
+}
+
+/* Radial Pulse */
+.radial-pulse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pulse-ring {
+    position: absolute;
+    border: 2px solid;
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: all 0.1s ease;
+}
+
+/* Grid Matrix */
+.grid-matrix {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+    gap: 2px;
+    padding: 20px;
+}
+
+.grid-cell {
+    background: rgba(62, 184, 95, 0.2);
+    border-radius: 2px;
+    transition: all 0.05s ease;
 }
 
 .visualizer-bar {
@@ -161,6 +242,49 @@ body {
     letter-spacing: 1px;
     color: var(--cbo-color);
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.bpm-text {
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+/* Visualization Selector */
+.viz-selector {
+    display: flex;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px;
+    border-radius: var(--space-1);
+}
+
+.viz-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.viz-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.viz-btn.active {
+    background: var(--cbo-color);
+    border-color: var(--cbo-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(62, 184, 95, 0.4);
 }
 
 /* Particles */

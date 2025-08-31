@@ -24,9 +24,33 @@
         
         <!-- Main Visualizer -->
         <div class="visualizer-wrapper">
-            <!-- Circular Visualizer Bars -->
-            <div class="circular-visualizer" id="circular-visualizer">
-                <!-- Bars will be generated via JS -->
+            <!-- Visualization Modes -->
+            <div class="visualization-container" id="viz-container">
+                <!-- Circular Visualizer -->
+                <div class="viz-mode circular-visualizer active" id="circular-visualizer" data-mode="circular">
+                    <!-- Bars will be generated via JS -->
+                </div>
+                
+                <!-- Wave Visualizer -->
+                <canvas class="viz-mode wave-visualizer" id="wave-visualizer" data-mode="wave"></canvas>
+                
+                <!-- Particle Field -->
+                <canvas class="viz-mode particle-field" id="particle-field" data-mode="particles"></canvas>
+                
+                <!-- DNA Helix -->
+                <div class="viz-mode dna-helix" id="dna-helix" data-mode="dna">
+                    <!-- DNA strands will be generated -->
+                </div>
+                
+                <!-- Radial Pulse -->
+                <div class="viz-mode radial-pulse" id="radial-pulse" data-mode="radial">
+                    <!-- Rings will be generated -->
+                </div>
+                
+                <!-- Grid Matrix -->
+                <div class="viz-mode grid-matrix" id="grid-matrix" data-mode="grid">
+                    <!-- Grid cells will be generated -->
+                </div>
             </div>
             
             <!-- CBO Avatar Container -->
@@ -35,6 +59,7 @@
                 <div class="avatar" id="cbo-avatar"></div>
                 <div class="expression-indicator">
                     <span id="mood-text">VIBING</span>
+                    <span id="bpm-display" class="bpm-text"></span>
                 </div>
             </div>
             
@@ -54,6 +79,16 @@
                 
                 <!-- Audio Element -->
                 <audio id="audio-player" controls crossorigin="anonymous"></audio>
+                
+                <!-- Visualization Style Selector -->
+                <div class="viz-selector">
+                    <button class="viz-btn active" data-viz="circular" title="Circular Bars">⭕</button>
+                    <button class="viz-btn" data-viz="wave" title="Waveform">〰️</button>
+                    <button class="viz-btn" data-viz="particles" title="Particle Field">✨</button>
+                    <button class="viz-btn" data-viz="dna" title="DNA Helix">🧬</button>
+                    <button class="viz-btn" data-viz="radial" title="Radial Pulse">💫</button>
+                    <button class="viz-btn" data-viz="grid" title="Grid Matrix">⚡</button>
+                </div>
                 
                 <!-- Preset Modes -->
                 <div class="mode-selector">
