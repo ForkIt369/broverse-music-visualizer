@@ -1,23 +1,40 @@
 {
-  "name": "broverse-music-visualizer",
-  "version": "1.0.0",
-  "description": "BroVerse Music Visualizer - CBO Edition with dynamic expressions and BDS colors",
+  "name": "brovibes",
+  "version": "3.0.0",
+  "description": "Ultra-refined music visualizer with GPU acceleration and advanced frequency analysis",
   "main": "index.html",
   "scripts": {
-    "start": "npx serve .",
-    "dev": "npx serve . -p 3001"
+    "start": "npx http-server . -p 8080 -o",
+    "dev": "npx http-server . -p 8080 -o -c-1",
+    "build": "echo 'No build required for static site'",
+    "test": "echo 'Tests coming soon'",
+    "deploy": "vercel --prod"
   },
   "keywords": [
-    "broverse",
     "music",
     "visualizer",
-    "web-audio",
+    "audio",
+    "web-audio-api",
+    "canvas",
+    "gpu",
     "bds",
-    "cbo"
+    "broverse"
   ],
   "author": "BroVerse Team",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/brovibes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/brovibes/issues"
+  },
+  "homepage": "https://brovibes.vercel.app",
   "devDependencies": {
-    "serve": "^14.2.0"
+    "http-server": "^14.1.1",
+    "vercel": "^32.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }

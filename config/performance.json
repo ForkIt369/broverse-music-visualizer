@@ -1,0 +1,117 @@
+{
+  "performance": {
+    "targetFPS": 60,
+    "frameTimeLimit": 16.67,
+    "skipFramesThreshold": 33.34,
+    "quality": {
+      "high": {
+        "barCount": 144,
+        "particleCount": 100,
+        "fftSize": 2048,
+        "smoothing": 0.85,
+        "canvasResolution": 1.0
+      },
+      "medium": {
+        "barCount": 96,
+        "particleCount": 50,
+        "fftSize": 1024,
+        "smoothing": 0.8,
+        "canvasResolution": 0.75
+      },
+      "low": {
+        "barCount": 48,
+        "particleCount": 25,
+        "fftSize": 512,
+        "smoothing": 0.75,
+        "canvasResolution": 0.5
+      }
+    }
+  },
+  "audio": {
+    "sampleRate": 48000,
+    "frequencyBands": {
+      "subBass": [20, 60],
+      "bass": [60, 250],
+      "lowMid": [250, 500],
+      "mid": [500, 2000],
+      "highMid": [2000, 4000],
+      "presence": [4000, 6000],
+      "brilliance": [6000, 20000]
+    },
+    "beatDetection": {
+      "energyHistorySize": 43,
+      "beatThreshold": 1.3,
+      "minBeatInterval": 150,
+      "bpmHistorySize": 10
+    }
+  },
+  "visualization": {
+    "modes": [
+      "circular",
+      "wave",
+      "particles",
+      "dna",
+      "radial",
+      "grid"
+    ],
+    "transitions": {
+      "fadeTime": 500,
+      "morphSpeed": 0.08,
+      "easingFunction": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "colors": {
+      "bds": {
+        "primary": "#3EB85F",
+        "secondary": "#00A1F1",
+        "tertiary": "#FE5F00",
+        "quaternary": "#7E3AF2"
+      }
+    }
+  },
+  "avatar": {
+    "expressions": {
+      "chill": {
+        "threshold": 0.2,
+        "scale": 1.0,
+        "cooldown": 60
+      },
+      "vibing": {
+        "threshold": 0.4,
+        "scale": 1.05,
+        "cooldown": 60
+      },
+      "hyped": {
+        "threshold": 0.6,
+        "scale": 1.1,
+        "cooldown": 60
+      },
+      "peak": {
+        "threshold": 0.8,
+        "scale": 1.15,
+        "cooldown": 60
+      }
+    }
+  },
+  "presets": {
+    "chill": {
+      "sensitivity": 0.6,
+      "smoothing": 0.95,
+      "quality": "high"
+    },
+    "party": {
+      "sensitivity": 1.4,
+      "smoothing": 0.8,
+      "quality": "high"
+    },
+    "focus": {
+      "sensitivity": 1.0,
+      "smoothing": 0.9,
+      "quality": "medium"
+    },
+    "hype": {
+      "sensitivity": 1.8,
+      "smoothing": 0.7,
+      "quality": "high"
+    }
+  }
+}

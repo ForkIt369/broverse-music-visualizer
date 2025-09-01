@@ -1,26 +1,37 @@
-/* BroVerse Music Visualizer - BDS Design System */
+/**
+ * BroVerse Music Visualizer - Ultra Edition v3.0
+ * GPU-Accelerated CSS with BDS Design System
+ */
 
 :root {
-    /* BDS Colors */
+    /* BDS Core Colors */
     --bigsis-color: #00A1F1;
     --lilsis-color: #7E3AF2;
     --bro-color: #FE5F00;
     --cbo-color: #3EB85F;
     --neutral: #393939;
+    
+    /* Background Palette */
     --bg-dark: #0a0a0a;
     --bg-medium: #1a1a1a;
+    --bg-light: #2a2a2a;
     
-    /* Typography */
-    --font-display: 'DM Sans', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    /* Typography Scale */
+    --font-display: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     
-    /* Spacing (8px grid) */
+    /* Spacing System (8px grid) */
     --space-1: 8px;
     --space-2: 16px;
     --space-3: 24px;
     --space-4: 32px;
     --space-5: 40px;
     --space-6: 48px;
+    
+    /* Animation Curves */
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 * {
@@ -35,6 +46,11 @@ body {
     color: #ffffff;
     overflow: hidden;
     height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Enable GPU acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 /* Container */
@@ -48,19 +64,28 @@ body {
     justify-content: center;
 }
 
-/* Background Effects */
+/* Background Effects with GPU Acceleration */
 .background-effects {
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at center, 
         rgba(62, 184, 95, 0.05) 0%,
         rgba(0, 0, 0, 0) 50%);
-    animation: bgPulse 10s ease-in-out infinite;
+    animation: bgPulse 10s var(--ease-smooth) infinite;
+    will-change: opacity;
+    transform: translateZ(0);
+    pointer-events: none;
 }
 
 @keyframes bgPulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.8; }
+    0%, 100% { 
+        opacity: 0.3;
+        transform: scale(1) translateZ(0);
+    }
+    50% { 
+        opacity: 0.8;
+        transform: scale(1.02) translateZ(0);
+    }
 }
 
 /* Main Visualizer Wrapper */
@@ -83,14 +108,17 @@ body {
     justify-content: center;
 }
 
-/* Visualization Modes - Base */
+/* Visualization Modes with GPU Layer */
 .viz-mode {
     position: absolute;
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s var(--ease-smooth);
     pointer-events: none;
+    transform: translateZ(0);
+    will-change: opacity;
+    backface-visibility: hidden;
 }
 
 .viz-mode.active {
@@ -105,25 +133,26 @@ body {
     justify-content: center;
 }
 
-/* Wave Visualizer */
-.wave-visualizer {
-    width: 100%;
-    height: 100%;
-}
-
-/* Particle Field */
+/* Canvas Visualizers with GPU Acceleration */
+.wave-visualizer,
 .particle-field {
     width: 100%;
     height: 100%;
+    transform: translateZ(0);
+    will-change: transform;
+    image-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
 }
 
-/* DNA Helix */
+/* DNA Helix with 3D GPU Acceleration */
 .dna-helix {
     display: flex;
     align-items: center;
     justify-content: center;
     transform-style: preserve-3d;
     perspective: 1000px;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .dna-strand {
@@ -131,14 +160,19 @@ body {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    transition: all 0.1s ease;
+    transition: all 0.1s var(--ease-smooth);
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    box-shadow: 0 0 10px currentColor;
 }
 
-/* Radial Pulse */
+/* Radial Pulse with GPU Optimization */
 .radial-pulse {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translateZ(0);
 }
 
 .pulse-ring {
@@ -146,22 +180,29 @@ body {
     border: 2px solid;
     border-radius: 50%;
     opacity: 0.8;
-    transition: all 0.1s ease;
+    transition: all 0.1s var(--ease-smooth);
+    will-change: transform, opacity, border-width;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
-/* Grid Matrix */
+/* Grid Matrix with GPU Acceleration */
 .grid-matrix {
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(16, 1fr);
     gap: 2px;
     padding: 20px;
+    transform: translateZ(0);
 }
 
 .grid-cell {
     background: rgba(62, 184, 95, 0.2);
     border-radius: 2px;
-    transition: all 0.05s ease;
+    transition: all 0.05s var(--ease-smooth);
+    will-change: transform, opacity, background;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .visualizer-bar {
@@ -174,17 +215,22 @@ body {
         var(--lilsis-color) 100%);
     border-radius: 2px;
     transform-origin: center bottom;
-    transition: height 0.05s ease-out, 
-                background 0.3s ease;
-    box-shadow: 0 0 10px currentColor;
+    transition: height 0.05s var(--ease-smooth), 
+                background 0.3s var(--ease-smooth),
+                box-shadow 0.2s var(--ease-smooth);
+    will-change: height, transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
-/* CBO Avatar */
+/* CBO Avatar with GPU Optimization */
 .avatar-container {
     position: relative;
     z-index: 10;
     width: 200px;
     height: 200px;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .avatar-glow {
@@ -193,17 +239,20 @@ body {
     background: radial-gradient(circle,
         rgba(62, 184, 95, 0.4) 0%,
         transparent 70%);
-    animation: glowPulse 2s ease-in-out infinite;
+    animation: glowPulse 2s var(--ease-smooth) infinite;
     filter: blur(20px);
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 @keyframes glowPulse {
     0%, 100% { 
-        transform: scale(1);
+        transform: scale(1) translateZ(0);
         opacity: 0.6;
     }
     50% { 
-        transform: scale(1.2);
+        transform: scale(1.2) translateZ(0);
         opacity: 1;
     }
 }
@@ -214,19 +263,30 @@ body {
     border-radius: 50%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     border: 3px solid var(--cbo-color);
     box-shadow: 0 0 30px rgba(62, 184, 95, 0.5);
-    transition: transform 0.1s ease-out,
-                border-color 0.3s ease;
+    transition: transform 0.1s var(--ease-smooth),
+                border-color 0.3s var(--ease-smooth),
+                box-shadow 0.3s var(--ease-smooth);
+    will-change: transform, border-color;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 .avatar.vibing {
-    animation: avatarBounce 0.5s ease-in-out infinite;
+    animation: avatarBounce 0.5s var(--ease-bounce);
 }
 
 @keyframes avatarBounce {
-    0%, 100% { transform: scale(1) translateY(0); }
-    50% { transform: scale(1.05) translateY(-5px); }
+    0%, 100% { 
+        transform: scale(1) translateY(0) translateZ(0); 
+    }
+    50% { 
+        transform: scale(1.05) translateY(-5px) translateZ(0); 
+    }
 }
 
 .expression-indicator {
@@ -252,13 +312,15 @@ body {
     opacity: 0.7;
 }
 
-/* Visualization Selector */
+/* Visualization Selector with Smooth Transitions */
 .viz-selector {
     display: flex;
     gap: 4px;
     background: rgba(255, 255, 255, 0.05);
     padding: 4px;
     border-radius: var(--space-1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .viz-btn {
@@ -272,26 +334,29 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s var(--ease-smooth);
+    transform: translateZ(0);
+    will-change: transform, background;
 }
 
 .viz-btn:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
 }
 
 .viz-btn.active {
     background: var(--cbo-color);
     border-color: var(--cbo-color);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 4px 12px rgba(62, 184, 95, 0.4);
 }
 
-/* Particles */
+/* Particles with GPU Acceleration */
 .particles {
     position: absolute;
     inset: 0;
     pointer-events: none;
+    transform: translateZ(0);
 }
 
 .particle {
@@ -300,21 +365,24 @@ body {
     height: 4px;
     background: var(--cbo-color);
     border-radius: 50%;
-    animation: particleFloat 3s ease-out forwards;
+    animation: particleFloat 3s var(--ease-smooth) forwards;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 @keyframes particleFloat {
     0% {
-        transform: translate(0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
         opacity: 1;
     }
     100% {
-        transform: translate(var(--x), var(--y)) scale(0);
+        transform: translate3d(var(--x), var(--y), 0) scale(0);
         opacity: 0;
     }
 }
 
-/* Controls Panel */
+/* Controls Panel with Backdrop Blur */
 .controls-panel {
     position: absolute;
     bottom: 0;
@@ -323,8 +391,10 @@ body {
     background: linear-gradient(to top,
         rgba(26, 26, 26, 0.95) 0%,
         transparent 100%);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     padding: var(--space-3) var(--space-4);
+    transform: translateZ(0);
 }
 
 .controls-wrapper {
@@ -468,20 +538,44 @@ body {
     50% { opacity: 1; }
 }
 
-/* Responsive */
+/* Performance Utilities */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.smooth-transition {
+    transition-timing-function: var(--ease-smooth);
+}
+
+/* High Performance Mode */
+@media (prefers-reduced-motion: no-preference) {
+    .visualizer-bar,
+    .particle,
+    .dna-strand,
+    .pulse-ring,
+    .grid-cell {
+        will-change: transform, opacity;
+    }
+}
+
+/* Reduced Motion Mode */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .visualizer-wrapper {
         width: 90vw;
         height: 90vw;
         max-width: 400px;
         max-height: 400px;
-    }
-    
-    .circular-visualizer {
-        width: 80vw;
-        height: 80vw;
-        max-width: 350px;
-        max-height: 350px;
     }
     
     .avatar-container {
@@ -491,5 +585,11 @@ body {
     
     .controls-wrapper {
         flex-wrap: wrap;
+        gap: var(--space-2);
+    }
+    
+    .settings {
+        flex-direction: column;
+        gap: var(--space-1);
     }
 }
