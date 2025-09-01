@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "name": "brovibes",
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "installCommand": "",
+  "framework": null,
+  "public": true
+}
